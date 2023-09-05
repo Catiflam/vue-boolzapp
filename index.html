@@ -102,7 +102,14 @@
 				</header>
 
 				<section class="messages">
-					<div v-for="(mess,index) in contacts[activeContat].messages" class="message" :class="mess.status">{{mess.message}}</div>
+					<div @click="" v-for="(mess,index) in contacts[activeContat].messages" class="message" :class="mess.status">
+						{{mess.message}}
+						<select class="delete">
+							<option selected></option>
+							<option value="1">Message Info</option>
+							<option @click="" value="2">Delete Message</option>
+						</select>
+					</div>
 				</section>
 
 				<footer class="user-actions">

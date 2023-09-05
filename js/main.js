@@ -371,5 +371,7 @@ createApp({
 				}
 			}
 		},
+
+		delete() {},
 	},
 }).mount("#app");

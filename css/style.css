@@ -292,3 +292,7 @@ input {
 	border: none;
 	border-radius: 0.5rem;
 }
+.delete {
+	border: none;
+	width: 20px;
+}
