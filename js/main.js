@@ -332,16 +332,44 @@ createApp({
 			],
 			activeContat: 0,
 			newMessage: {
-				date: "10/01/2020 15:30:55",
+				date: "...",
 				message: "",
 				status: "sent",
 			},
+			search: "",
+			result: "",
 		};
 	},
 
 	methods: {
 		setActiveContat(index) {
 			this.activeContat = index;
+		},
+
+		sentNewMessage() {
+			if (this.newMessage.message == "") return;
+			const newMessageCopy = { ...this.newMessage };
+			this.contacts[this.activeContat].messages.push(newMessageCopy);
+			this.newMessage.message = "";
+
+			setTimeout(() => {
+				const newAnswer = {
+					date: "...",
+					message: "ok",
+					status: "received",
+				};
+				this.contacts[this.activeContat].messages.push(newAnswer);
+			}, 1000);
+		},
+
+		setSearch() {
+			for (let i = 0; i < this.contacts.length; i++) {
+				if (this.contacts[i].name.toLowerCase().includes(this.search.toLowerCase())) {
+					this.contacts[i].visible = true;
+				} else {
+					this.contacts[i].visible = false;
+				}
+			}
 		},
 	},
 }).mount("#app");

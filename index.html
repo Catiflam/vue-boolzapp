@@ -59,13 +59,13 @@
 						<div class="search-icon">
 							<i class="fa-solid fa-magnifying-glass"></i>
 						</div>
-						<input class="search-input" type="text" />
+						<input @keyup="setSearch()" v-model="search" class="search-input" type="text" />
 					</div>
 				</div>
 
 				<!-- CONTACTS LIST -->
 				<ul class="contacts-list">
-					<li v-for="(contat,index) in contacts" @click="setActiveContat(index)" class="contact">
+					<li v-for="(contat,index) in contacts" @click="setActiveContat(index)" v-show="contat.visible" class="contact">
 						<div class="contact-pic">
 							<img :src="contat.avatar" alt="" />
 						</div>
@@ -77,90 +77,6 @@
 
 						<div class="time">12:00</div>
 					</li>
-					<!--	<li class="contact">
-						<div class="contact-pic">
-							<img src="./img/avatar_2.jpg" alt="" />
-						</div>
-
-						<div class="main-text">
-							<h3 class="main-text-upper">Fabio</h3>
-							<h4 class="main-text-lower">Ultimo accesso oggi alle 12:00</h4>
-						</div>
-
-						<div class="time">12:00</div>
-					</li>
-					<li class="contact">
-						<div class="contact-pic">
-							<img src="./img/avatar_3.jpg" alt="" />
-						</div>
-
-						<div class="main-text">
-							<h3 class="main-text-upper">Samuele</h3>
-							<h4 class="main-text-lower">Ultimo accesso oggi alle 12:00</h4>
-						</div>
-
-						<div class="time">12:00</div>
-					</li>
-					<li class="contact">
-						<div class="contact-pic">
-							<img src="./img/avatar_4.jpg" alt="" />
-						</div>
-
-						<div class="main-text">
-							<h3 class="main-text-upper">Alessandro B.</h3>
-							<h4 class="main-text-lower">Ultimo accesso oggi alle 12:00</h4>
-						</div>
-
-						<div class="time">12:00</div>
-					</li>
-					<li class="contact">
-						<div class="contact-pic">
-							<img src="./img/avatar_4.jpg" alt="" />
-						</div>
-
-						<div class="main-text">
-							<h3 class="main-text-upper">Alessandro L.</h3>
-							<h4 class="main-text-lower">Ultimo accesso oggi alle 12:00</h4>
-						</div>
-
-						<div class="time">12:00</div>
-					</li>
-					<li class="contact">
-						<div class="contact-pic">
-							<img src="./img/avatar_4.jpg" alt="" />
-						</div>
-
-						<div class="main-text">
-							<h3 class="main-text-upper">Claudia</h3>
-							<h4 class="main-text-lower">Ultimo accesso oggi alle 12:00</h4>
-						</div>
-
-						<div class="time">12:00</div>
-					</li>
-					<li class="contact">
-						<div class="contact-pic">
-							<img src="./img/avatar_4.jpg" alt="" />
-						</div>
-
-						<div class="main-text">
-							<h3 class="main-text-upper">Federico</h3>
-							<h4 class="main-text-lower">Ultimo accesso oggi alle 12:00</h4>
-						</div>
-
-						<div class="time">12:00</div>
-					</li>
-					<li class="contact">
-						<div class="contact-pic">
-							<img src="./img/avatar_4.jpg" alt="" />
-						</div>
-
-						<div class="main-text">
-							<h3 class="main-text-upper">Davide</h3>
-							<h4 class="main-text-lower">Ultimo accesso oggi alle 12:00</h4>
-						</div>
-
-						<div class="time">12:00</div>
-					</li>-->
 				</ul>
 			</div>
 
@@ -187,7 +103,6 @@
 
 				<section class="messages">
 					<div v-for="(mess,index) in contacts[activeContat].messages" class="message" :class="mess.status">{{mess.message}}</div>
-					<!-- <div class="message received"></div> -->
 				</section>
 
 				<footer class="user-actions">
@@ -196,7 +111,7 @@
 					</div>
 
 					<div class="message-bar">
-						<input class="message-input" type="text" name="" id="" />
+						<input class="message-input" type="text" v-model="newMessage.message" @keyup.enter="sentNewMessage()" />
 					</div>
 
 					<div class="icons-container">
@@ -206,5 +121,4 @@
 			</main>
 		</div>
 	</body>
-	<!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
 </html>
