@@ -4,22 +4,22 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>BOOLZAP</title>
+		<!-- FONT AWESOME -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<!-- BOOTSTRAP -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+
+		<!-- JAVASCRIPT -->
+		<script type="text/Javascript" src="./js/main.js" defer></script>
+		<!-- STYLE-CSS -->
+		<link rel="stylesheet" href="./css/style.css" />
+
+		<!-- Vue 3 -->
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+		<!-- Vue 3 app - Options API -->
+		<script src="./js/app.js" type="text/javascript" defer></script>
 	</head>
-	<!-- FONT AWESOME -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<!-- BOOTSTRAP -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
-
-	<!-- JAVASCRIPT -->
-	<script type="text/Javascript" src="./js/main.js" defer></script>
-	<!-- STYLE-CSS -->
-	<link rel="stylesheet" href="./css/style.css" />
-
-     <!-- Vue 3 -->
-     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
-     <!-- Vue 3 app - Options API -->
-     <script src="./js/app.js" type="text/javascript" defer></script>
 	<body>
 		<div class="wrapper" id="app">
 			<!-- COL CONTACTS -->
@@ -65,20 +65,19 @@
 
 				<!-- CONTACTS LIST -->
 				<ul class="contacts-list">
-					<li v-for="contat in contacts" class="contact"> 
-						
+					<li v-for="(contat,index) in contacts" @click="setActiveContat(index)" class="contact">
 						<div class="contact-pic">
-							<img :src="contacts.avatar" alt="" />
-						</div> 
+							<img :src="contat.avatar" alt="" />
+						</div>
 
-						 <div class="main-text">
+						<div class="main-text">
 							<h3 class="main-text-upper">{{contat.name}}</h3>
 							<h4 class="main-text-lower">Ultimo accesso oggi alle 12:00</h4>
 						</div>
 
 						<div class="time">12:00</div>
 					</li>
-				<!--	<li class="contact">
+					<!--	<li class="contact">
 						<div class="contact-pic">
 							<img src="./img/avatar_2.jpg" alt="" />
 						</div>
@@ -161,8 +160,8 @@
 						</div>
 
 						<div class="time">12:00</div>
-					</li>
-				</ul> -->
+					</li>-->
+				</ul>
 			</div>
 
 			<!-- COL CHAT -->
@@ -171,11 +170,11 @@
 				<header class="col-header">
 					<div class="user">
 						<div class="user-pic">
-							<img src="./img/avatar_1.jpg" alt="" />
+							<img :src="contacts[activeContat].avatar" alt="" />
 						</div>
 
 						<div class="main-text">
-							<h3 class="main-text-upper">Michele</h3>
+							<h3 class="main-text-upper">{{contacts[activeContat].name}}</h3>
 							<h4 class="main-text-lower">Ultimo accesso oggi alle 12:00</h4>
 						</div>
 					</div>
@@ -187,9 +186,8 @@
 				</header>
 
 				<section class="messages">
-					<div class="message sent">Hai portato a spasso il cane?</div>
-					<div class="message sent">Ricordati di stendere i panni</div>
-					<div class="message received">Tutto fatto!</div>
+					<div v-for="(mess,index) in contacts[activeContat].messages" class="message" :class="mess.status">{{mess.message}}</div>
+					<!-- <div class="message received"></div> -->
 				</section>
 
 				<footer class="user-actions">
